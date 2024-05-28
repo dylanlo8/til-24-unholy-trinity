@@ -12,13 +12,13 @@ ENV PYTHONUNBUFFERED 1
 # pip gives a warning if you install packages as root
 # set this flag to just ignore the warning
 ENV PIP_ROOT_USER_ACTION=ignore
-
 RUN pip install -U pip
 WORKDIR /workspace
 
 # install other requirements
 COPY requirements.txt .
 RUN pip install -r requirements.txt
+RUN pip uninstall -y torch-xla
 
 # copy the rest of the files into the container
 COPY src .

@@ -17,23 +17,28 @@ TEAM_TRACK = os.getenv("TEAM_TRACK")
 
 def main():
     # input_dir = Path(f"/home/jupyter/{TEAM_TRACK}")
-    input_dir = Path(f"../../data/{TEAM_TRACK}/train")
+    input_dir = Path(f"../{TEAM_TRACK}")
     # results_dir = Path(f"/home/jupyter/{TEAM_NAME}")
     results_dir = Path("results")
     results_dir.mkdir(parents=True, exist_ok=True)
     instances = []
 
+    total_lines = 0
     with open(input_dir / "asr.jsonl", "r") as f:
         for line in f:
             if line.strip() == "":
                 continue
+            if total_lines > 50:
+                break
             instance = json.loads(line.strip())
+            total_lines = total_lines + 1
             with open(input_dir / "audio" / instance["audio"], "rb") as file:
                 audio_bytes = file.read()
                 instances.append(
                     {**instance, "b64": base64.b64encode(audio_bytes).decode("ascii")}
                 )
-
+           
+             
     results = run_batched(instances)
     df = pd.DataFrame(results)
     df.to_csv(results_dir / "asr_results.csv", index=False)
@@ -74,6 +79,8 @@ def run_batched(
                 for i in range(len(_instances))
             ]
         )
+    
+    print(results)
     return results
 
 

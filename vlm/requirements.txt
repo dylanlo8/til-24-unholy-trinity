@@ -3,12 +3,27 @@ gdown==4.5.1
 matplotlib>=3.2.2
 numpy>=1.18.5,<1.24.0
 PyYAML>=5.3.1
-opencv-python==4.5.5.64
+opencv-python-headless
 scipy>=1.4.1
 torch>=1.7.0,!=1.12.0
 torchvision>=0.8.1,!=0.13.0
 tqdm>=4.41.0
 protobuf<4.21.3
-transformers==4.37.0
+transformers
 accelerate
 uvicorn[standard]
+git+https://github.com/openai/CLIP.git
+pillow
+ftfy
+regex
+tqdm
+ftfy
+regex
+tqdm
+pandas>=1.1.4
+seaborn>=0.11.0
+gradio==3.35.2
+# Ultralytics-----------------------------------
+ultralytics == 8.0.120
+
+

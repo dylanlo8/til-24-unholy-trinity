@@ -17,7 +17,8 @@ TEAM_TRACK = os.getenv("TEAM_TRACK")
 
 def main():
     # input_dir = Path(f"/home/jupyter/{TEAM_TRACK}")
-    input_dir = Path(f"../../data/{TEAM_TRACK}/train")
+    # input_dir = Path(f"../../data/{TEAM_TRACK}/train")
+    input_dir = Path(f"../{TEAM_TRACK}")
     # results_dir = Path(f"/home/jupyter/{TEAM_NAME}")
     results_dir = Path("results")
 
@@ -28,12 +29,17 @@ def main():
 
     with open(input_dir / "vlm.jsonl", "r") as f:
         for line in f:
+            if counter == 100:
+                break
             if line.strip() == "":
                 continue
             instance = json.loads(line.strip())
+            print("Opening image")
             with open(input_dir / "images" / instance["image"], "rb") as file:
                 image_bytes = file.read()
                 for annotation in instance["annotations"]:
+                    if counter == 100:
+                        break
                     instances.append(
                         {
                             "key": counter,

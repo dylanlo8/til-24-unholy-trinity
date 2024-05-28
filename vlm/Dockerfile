@@ -18,6 +18,7 @@ WORKDIR /workspace
 
 # install other requirements
 COPY requirements.txt .
+RUN apt-get update && apt-get install -y libgl1
 RUN pip install -r requirements.txt
 
 # copy the rest of the files into the container
